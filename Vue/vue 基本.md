@@ -8,18 +8,36 @@
 
 ## 基本用法
 
-功能接口
+
 
 - 单文件组件
+
 - 文本渲染 `v-html` `{{}}` `v-text` 
+
 - 列表渲染 数组 对象
+
 - 列表数据的同步更新
+
 - `v-bind` 动态绑定属性
+
 - `v-bind` 可以简写为 `:`
+
 - 使用 `v-bind` 绑定 **class 和内联样式**
+
 - 使用 `v-if` `v-show` `v-else` 进行条件渲染
+
 - `v-on` `@` `methods` 事件绑定
+
+  - 在组件中，方法不要用箭头函数，不然 this 不能直接访问到组件实例的属性
+  - [官方说明 methods](https://cn.vuejs.org/v2/api/#methods)
+
+> 注意，**不应该使用箭头函数来定义 method 函数** (例如 `plus: () => this.a++`)。理由是箭头函数绑定了父级作用域的上下文，所以 `this` 将不会按照期望指向 Vue 实例
+
 - `v-on 修饰符` 可以指定键盘事件
+
+### Class 与 Style 绑定
+
+[官方说明](https://cn.vuejs.org/v2/guide/class-and-style.html)
 
 ### v-if 和 v-show
 
@@ -97,7 +115,7 @@ new Vue({
 
 ## 计算属性
 
-- 说明：计算属性是基于它们的依赖进行缓存的，只有在它的依赖发生改变时才会重新求值
+- 说明：**计算属性是基于它们的依赖进行缓存的**，只有在它的依赖发生改变时才会重新求值，相比之下，每当触发重新渲染时，调用方法将**总会**再次执行函数。
 - 注意：Mustache语法（{{}}）中不要放入太多的逻辑，否则会让模板过重、难以理解和维护
 - 注意：**computed中的属性不能与data中的属性同名，否则会报错**
 - [Vue computed属性原理](<http://www.cnblogs.com/kidney/p/7384835.html?utm_source=debugrun&utm_medium=referral>)
