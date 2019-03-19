@@ -21,6 +21,21 @@ props 里 validator (value) {reutrn ...} 返回一个 boolean 值
 
 ## 双向绑定
 
+自定义事件也可以用于创建支持 `v-model` 的自定义输入组件。记住：
+
+```html
+<input v-model="searchText">
+```
+
+等价于：
+
+```html
+<input
+  v-bind:value="searchText"
+  v-on:input="searchText = $event.target.value"
+>
+```
+
 v-model
 
 mode   $emit
