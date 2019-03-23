@@ -71,18 +71,46 @@ a[href^="https://"] {}
 *   [Selectors Level 3 | W3](https://www.w3.org/TR/selectors/#selectors)（官方参考手册，英文版）
 *   [Selectors Level 4 | W3](https://drafts.csswg.org/selectors-4/)（第四代选择器草稿）
 
-##选择器效率
+#### 伪类列表
+
+- [`:link`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/:link)
+- [`:visited`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/:visited)
+- [`:active`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/:active)
+- [`:hover`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/:hover)
+- [`:focus`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/:focus)
+- [`:first-child`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/:first-child)
+- [`:nth-child`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/:nth-child)
+- [`:nth-last-child`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/:nth-last-child)
+- [`:nth-of-type`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/:nth-of-type)
+- [`:first-of-type`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/:first-of-type)
+- [`:last-of-type`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/:last-of-type)
+- [`:empty`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/:empty)
+- [`:target`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/:target)
+- [`:checked`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/:checked)
+- [`:enabled`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/:enabled)
+- [`:disabled`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/:disabled)
+
+## 选择器效率
 根据网站效率专家 [Steve Souders](http://stevesouders.com/) 指出，各种 CSS 选择器的效率由高至低排序如下
 - id选择器（#myid）
+
 - 类选择器（.myclassname）
+
 - 标签选择器（div,h1,p）
+
 - 相邻选择器（h1 + p）
+
 - 子选择器（ul > li）
+
 - 后代选择器（li a）
+
 - 通配符选择器（*）
+
 - 属性选择器（a[rel="external"]）
+
 - 伪类选择器（a:hover,li:nth-child）
-  ##选择器解读顺序
+
+## 选择器解读顺序
   一般来说，在具体的项目中，HTML 结构都比较复杂，所以关系选择器使用非常的普遍。对于关系选择器来说，我们的阅读习惯是从左到右，但是浏览器解读选择器，遵循的原则是从选择器的右边到左边读取。
 
 如对于选择器.list .item .item-tt，浏览器先找的是.item-tt，然后继续向父级元素寻找.item，再找.list，这样才完成了最终的选择器匹配。
