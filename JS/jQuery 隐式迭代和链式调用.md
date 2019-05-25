@@ -21,7 +21,7 @@ $('.primary').css('color', '#188eee');
 
 这是因为 jQuery 的方法内部存在**隐式迭代**，它会对匹配到的所有元素进行循环遍历，执行相应的方法；无需我们再手动地进行循，方便我们使用。
 
-除了隐式迭代外，jQuery 还提供了 [each](http://jquery.cuishifeng.cn/each.html) 方法，方便有需要的时候调用。比喻要对每个元素做不同的处理：
+除了隐式迭代外，jQuery 还提供了 [each](http://jquery.cuishifeng.cn/each.html) 方法，方便有需要的时候调用。比如要对每个元素做不同的处理：
 
 ```js
 $("li").each(function(i){

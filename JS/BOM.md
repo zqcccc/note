@@ -16,8 +16,8 @@ ECMScript 的 global 对象，全局作用域
 
 属性和方法：
 
-- href
-- path
+- href 当前页面的地址
+- pathname
 - assign() 可以加载别的页面，跟直接修改 href 效果一样
 - reload() 重载页面，`location.reload(true)` 不从缓冲中重载页面
 

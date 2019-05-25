@@ -35,3 +35,4 @@
 | ×        | 乘号              | `&times;` | `&#215;` |
 
 更多可参看：[HTML Symbol Entities Codes](http://www.entitycode.com/)
+

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)https://coding.imweb.io/demo/p2/gradient-linear.html -->
+<html data-blockbyte-bs-uid="31258"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	
+	<title>线性渐变</title>
+	<style type="text/css">
+    section, h1 {
+        margin: 60px;
+    }
+
+    .gradient {
+      width: 260px;
+      height: 100px;
+    }
+    .gradient-default {
+      background: linear-gradient(orange, yellow); 
+    }
+    .gradient-utd {
+      background: linear-gradient(to right, orange, yellow);
+    }
+    .gradient-angel {
+      background: linear-gradient(135deg, orange, yellow); 
+    }
+    .gradient-colors {
+      background: linear-gradient(to right, red, orange, yellow, white);
+    }
+    .gradient-colorposition {
+      background: linear-gradient(to right, orange, yellow 70%, red);  
+    }
+    .gradient-opactity {
+      background: linear-gradient(to right, rgba(0,0,255,0), rgba(0,0,255,1));
+    }
+    .gradient-repeat {
+      background: repeating-linear-gradient(-45deg, blue, blue 5px, white 5px, white 10px);
+    }
+	</style>
+<style class="blockbyte-bs-style" data-name="content">body>div#blockbyte-bs-indicator>div{opacity:0;pointer-events:none}body>iframe#blockbyte-bs-sidebar.blockbyte-bs-visible,body>iframe#blockbyte-bs-overlay.blockbyte-bs-visible{opacity:1;pointer-events:auto}body.blockbyte-bs-noscroll{overflow:hidden !important}body>div#blockbyte-bs-indicator>div{position:absolute;transform:translate3d(-50px, 0, 0);top:0;left:0;width:50px !important;height:100%;background:rgba(0,0,0,0.5);border-radius:0 10px 10px 0;transition:opacity 0.3s, transform 0.3s;z-index:2}body>div#blockbyte-bs-indicator>div>span{-webkit-mask:no-repeat center/32px;-webkit-mask-image:url(chrome-extension://jdbnofccmhefkmjbkkdkfiicjkgofkdh/img/icon-bookmark.svg);background-color:#ffffff;position:absolute;display:block;top:0;left:0;width:100%;height:100%}body>div#blockbyte-bs-indicator[data-pos='right']{left:auto;right:0}body>div#blockbyte-bs-indicator[data-pos='right']>div{transform:translate3d(50px, 0, 0);left:auto;right:0;border-radius:10px 0 0 10px}body>div#blockbyte-bs-indicator.blockbyte-bs-fullHeight>div{border-radius:0}body>div#blockbyte-bs-indicator.blockbyte-bs-hover>div{transform:translate3d(0, 0, 0);opacity:1}body>div#blockbyte-bs-indicator[data-pos='left'].blockbyte-bs-has-lsb{height:100% !important;top:0 !important}body>div#blockbyte-bs-indicator[data-pos='left'].blockbyte-bs-has-lsb>div{background:transparent}body>div#blockbyte-bs-indicator[data-pos='left'].blockbyte-bs-has-lsb>div>span{-webkit-mask-position-y:20px}body>iframe#blockbyte-bs-sidebar{width:350px;max-width:none;height:0;z-index:2147483646;background-color:rgba(0,0,0,0.6) !important;border:none;display:block !important;transform:translate3d(-350px, 0, 0);transition:width 0s 0.3s, height 0s 0.3s, opacity 0.3s, transform 0.3s}body>iframe#blockbyte-bs-sidebar[data-pos='right']{left:auto;right:0;transform:translate3d(350px, 0, 0)}body>iframe#blockbyte-bs-sidebar.blockbyte-bs-visible{width:calc(100% + 350px);height:100%;transform:translate3d(0, 0, 0);transition:opacity 0.3s, transform 0.3s}body>iframe#blockbyte-bs-sidebar.blockbyte-bs-hideMask{background:none !important}body>iframe#blockbyte-bs-sidebar.blockbyte-bs-hideMask:not(.blockbyte-bs-hover){width:calc(350px + 50px)}body>iframe#blockbyte-bs-overlay{width:100%;max-width:none;height:100%;z-index:2147483647;border:none;background:rgba(0,0,0,0.5) !important;transition:opacity 0.3s}
+</style></head>
+<body>
+<h1>线性渐变</h1>
+
+<section>
+<h2>从上到下的线性渐变</h2>
+<pre>.gradient-default {
+    background: linear-gradient(orange, yellow);
+}
+</pre>
+<div class="gradient gradient-default"></div>
+</section>
+
+<section>
+<h2>从左到右的线性渐变</h2>
+<pre>.gradient-utd {
+    background: linear-gradient(to right, orange, yellow);
+}
+</pre>
+<div class="gradient gradient-utd"></div>
+</section>
+
+<section>
+<h2>使用角度的线性渐变</h2>
+<pre>.gradient-angel {
+    background: linear-gradient(135deg, orange, yellow);
+}
+</pre>
+<div class="gradient gradient-angel"></div>
+</section>
+
+<section>
+<h2>指定多个等间距的色标</h2>
+<pre>.gradient-colors {
+    background: linear-gradient(to right, red, orange, yellow, white);
+}
+</pre>
+<div class="gradient gradient-colors"></div>
+</section>
+
+<section>
+<h2>指定多个指定位置的色标</h2>
+<pre>.gradient-colorposition {
+    background: linear-gradient(to right, orange, yellow 70%, red);
+}
+</pre>
+<div class="gradient gradient-colorposition"></div>
+</section>
+
+<section>
+<h2>使用透明度</h2>
+<pre>.gradient-opactity {
+    background: linear-gradient(to right, rgba(0,0,255,0), rgba(0,0,255,1));
+}
+</pre>
+<div class="gradient gradient-opactity"></div>
+</section>
+
+<section>
+<h2>重复的线性渐变</h2>
+<pre>.gradient-repeat {
+    background: repeating-linear-gradient(-45deg, blue, blue 5px, white 5px, white 10px);
+}
+</pre>
+<div class="gradient gradient-repeat"></div>
+</section>
+  
+
+
+
+<iframe id="blockbyte-bs-sidebar" class="notranslate" __idm_frm__="462" data-pos="left" src="./线性渐变_files/saved_resource.html"></iframe><div id="blockbyte-bs-indicator" class="blockbyte-bs-fullHeight blockbyte-bs-visible" data-pos="left" style="width: 21px; height: 100%; top: 0%;"><div><span></span></div></div></body></html>

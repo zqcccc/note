@@ -97,6 +97,10 @@ var qAllLi = document.querySelectorAll('li') // 返回匹配的集合
 - `createTextNode(content)` 创建文本节点
 - `appendChild(element)` 新增节点到父元素的末尾
 - `insertBefore(element, target)` 新增节点到 `target` 元素的前面
+- `removeChild(element)` 删除子节点
+
+删除多个就是用循环，`element.parentNode.removeChild(element)` 连续删除就完事了
+
 
 ```js
 var h2 = document.createElement('h2')
@@ -147,7 +151,7 @@ delDom = Array.prototype.slice.call(delDom); // 还记得 HTMLCollection 的概�
 
 ### property 和 attribute
 
-- 公认的 attribute 会映射到 property
+- **公认的 attribute 会映射到 property**
 - 读写方式不同
 - property 直接像访问对象的属性就可以读写了
 - attribute 要用 getAttribute() 和 setAttribute()
