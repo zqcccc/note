@@ -14,7 +14,7 @@ CDN 的全称是 **Content Delivery Network**，即内容分发网络。通过�
 
 如今 CDN 各大厂商都会提供十分详尽的接入文档，使我们接入的开发成本变得更低。这里列举国内比较出名的 CDN 厂商：
 
-- [叉拍云](https://www.upyun.com/products/cdn?gclid=EAIaIQobChMImayU6ejE1QIVHL69Ch19bANOEAAYAyAAEgLGY_D_BwE)
+- [叉拍云](https://www.upyun.com/products/cdn?gclid=EAIaIQobChMImayU6ejE1QIVHL69Ch19bANOEAAYAyAAEgLGY_D_BwE)
 - [腾讯云](https://cloud.tencent.com/product/cdn?fromSource=gwzcw.251481.251481.251481&gclid=EAIaIQobChMIpLnk7eHE1QIVVQoqCh3JhwO3EAAYAiAAEgKBJ_D_BwE)
 - [七牛云](https://www.qiniu.com/products/fusion?utm_campaign=googleSEM&utm_source=googleSEM&utm_medium=googleSEM&utm_content=googleSEM&gclid=EAIaIQobChMIpLnk7eHE1QIVVQoqCh3JhwO3EAAYASAAEgIDpvD_BwE)
 - [阿里云](https://www.alibabacloud.com/zh?utm_content=se_712562&gclid=EAIaIQobChMIiI7yienE1QIVjgYqCh1RPgD_EAAYASAAEgJRwfD_BwE)

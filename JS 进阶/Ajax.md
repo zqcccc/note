@@ -89,3 +89,5 @@ Cross-Origin Resource Sharing 跨域资源共享
 JSON with Padding
 
 就是用 `script` 标签
+
+缺点也很明显，只能是 get 请求
