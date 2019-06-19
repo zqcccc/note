@@ -54,6 +54,147 @@ v-show 对 template 是失效的，所以控制多个元素显隐的话还是用
 
 结论：在初始化后不再变化的时候用 v-if，频繁切换状态的用 v-show
 
+## 遍历
+
+遍历数组
+
+```html
+<ul>
+    <li v-for="item in arr">{{item}}</li>
+</ul>
+<ul>
+    <li v-for="(item, index) in arr">{{item}}</li>
+</ul>
+```
+
+遍历对象
+
+```html
+<ul>
+    <li v-for="value in obj">{{value}}</li>
+</ul>
+<ul>
+    <li v-for="(value, key, index) in obj">{{value}}</li>
+</ul>
+```
+
+## 数组更新
+
+vue 将数组的方法劫持了，并对其进行了一些封装，这些方法都对原数组进行了修改
+
+- push
+- splice
+- pop
+- unshift
+- sort
+- shift
+- reverse
+
+下面的就没有进行封装，直接使用是不会触发视图更新的
+
+- vm.arr.filter
+- vm.arr.concat
+- vm.arr.slice
+- **vm.arr[i] = 'xxx'**
+
+即使 vue 的数组进行了重新赋值，但它也不是直接全部进行全量替换，它是启发式的替换
+
+## v-on
+
+在传递事件对象的时候在函数参数里传递 `$event` 就可以了
+
+v-on 可以简写成 @
+
+### 事件修饰符
+
+`.stop` 阻止事件冒泡
+
+`.self` 当触发事件的对象是自身才执行
+
+`.prevent` 阻止浏览器的默认行为（阻止默认行为其实也在回调里面调用 event.preventDefault）
+
+`.capture` 监听器采用事件捕捉模型（原本默认是冒泡模型）
+
+`.once` 监听器触发一次后移除
+
+`.passive` 告诉浏览器该监听器是“主动地”（根据我的理解就是回调里一定不会 preventDefault，直接去触发默认浏览器行为，这样可以解决一些卡顿问题，因为，函数调用总归有成本的，它可能会等到函数执行完才去执行浏览器默认行为，有可能会有卡顿的可能）
+
+## 数据双向绑定
+
+v-model 自定义组件也可以用，只要有一个`props`是`value`，并且在某个事件中调用`this.$emit('input', value)`即可，可以加后缀来实现不同的效果
+
+输入框加了 `.lazy` 要失焦才会触发
+
+组件利用`v-bind.sync="prop"`，进行双向绑定时，需要组件触发`update:prop`事件。
+
+## 表单控件
+
+input  checkbox控件默认选中为 true，不选中为 false
+
+true-value 和 false-value 可以是选中和不选中的自定义值
+
+也可以绑定一个数组，和多个值多选
+
+也可以绑定单选的值
+
+文件上传的控件不支持 v-model
+
+```js
+function (evt) {
+    this.file = evt.target.files[0]
+}
+```
+
+## 组件开发
+
+组件大小看开发者的划分力度
+
+### 组件注册
+
+全局注册
+
+```js
+Vue.component('my-button', {
+    data: function (){
+        return {
+            count: 0
+        }
+    },
+    template: '<button @click="handleClick">{{count}}</button>',
+    methods: {
+        handleClick: function() {
+            this.count += 1
+        }
+    }
+})
+```
+
+局部注册
+
+在单个组件里面有个 components 的项，
+
+## props 传参
+
+配置对象里有个 props，是个数组， 参数名字的字符串
+
+props 也可以是个对象，key 就是传参的名称，value 就是数据类型 `Number` 这种，value 也可以是个对象 `{type: Number, default: 5, validator: function (value) { return value > 0 && value < 10}}`
+
+不用 v-bind 传递都是字符串
+
+vue 中的 props 也是遵循单向数据流的
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ## vue 基本概念
