@@ -183,6 +183,107 @@ props 也可以是个对象，key 就是传参的名称，value 就是数据类�
 
 vue 中的 props 也是遵循单向数据流的
 
+## 自定义事件
+
+1. 组件监听事件 `@事件名称="方法"`
+
+```js
+this.$emit('事件名称'， 参数)
+```
+
+这个事件名称如果是 `click` ，监听的不是原生的 click 事件，要在 `click` 后面加个 `.native` 就可以监听原生事件了
+
+2. 在 v-bind 的值后面加 `.sync` 也可以监听值的变化
+
+例如
+
+```html
+<my-button :initial-count.sync="parentCount"
+```
+
+在子组件去触发的时候只要
+
+```js
+this.$emit('update:initialCount', this.count)
+```
+
+这种方法有点像语法糖的感觉
+
+## 组件间通信
+
+### 父子组件
+
+出了上面的方法，还可以通过 `this.$parent` 和 `this.$children[0]` 来访问实例，从而可以访问到 data 里面的那些属性，但是这不是推荐的方法，因为这会让程序流变得很混乱
+
+### 兄弟组件
+
+eventBus，新建一个空的 Vue 对象 eventBus，在 Vue 的原型上绑定它
+
+然后在兄弟组件里的某些事件中用 `this.eventBus.$emit` 来分发事件，然后可以在另一个兄弟组件里的 created 生命周期里用 `this.eventBus.$on` 来监听事件
+
+其实如果是同一个父级的兄弟元素也是可以用父级作为中转站的
+
+`inject/provide`在课程里没提到，这两个配置项一般用于组件库，实现跨级传值，而不用像`props`逐级传参。
+
+## 插槽
+
+匿名插槽
+
+具名插槽 `<slot name="xxx"></slot>` 组件里调用就可以用 `<>`
+
+作用域插槽
+
+## 自定义指令
+
+`v-text:foo.a="expression"`
+
+`v-指令名称:参数.修饰符="表达式"`
+
+指令注册也分全局注册和局部注册
+
+```js
+Vue.directive('test', function(el, bindings, vnode) {}) // 第二个参数是函数
+
+Vue.directive('test', {}) // 第二个参数是对象，可以配置的内容更多，更像是在配置不同生命周期
+```
+
+例子：长按指令
+
+```js
+Vue.directive('long-press', function(el, bindings) {
+    var timer = null
+    var value = bindings.value
+    var fn = value.callback
+    var duration = value.duration || 700
+    var that = this
+    el.addEventListener('touchstart', run)
+    el.addEventListener('touchend', stop)
+    el.addEventListener('touchmove', stop)
+    
+    function run() {
+        if (timer === null) {
+            timer = setTimeout(function() {
+                fn && fn.call(that, el, bindings)
+                clearTimeout(timer)
+            }, duration)
+        }
+    }
+    
+    function stop() {
+        clearTimeout(timer)
+        timer = null
+    }
+})
+```
+
+然后指令传参可以传一个对象 `v-long-press={callback:handleLongPredd, role:role}`
+
+
+
+
+
+
+
 
 
 
