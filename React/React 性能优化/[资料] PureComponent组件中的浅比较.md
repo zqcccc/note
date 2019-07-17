@@ -4,7 +4,7 @@
 
 以下是 React 的 shouldComponentUpdate 函数源码的部分实现：
 
-```
+```js
 else if (type.prototype && type.prototype.isPureReactComponent) {
   shouldUpdate = !shallowEqual(oldProps, props) || !shallowEqual(oldState, state);
 }
@@ -14,7 +14,7 @@ else if (type.prototype && type.prototype.isPureReactComponent) {
 
 我们来看看这个 shallowEqual 函数的源码实现：
 
-```
+```js
 const hasOwnProperty = Object.prototype.hasOwnProperty;
 
 function is(x, y) {
