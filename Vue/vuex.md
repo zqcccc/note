@@ -763,3 +763,63 @@ modules: {
 ```
 
 后面的东西还是去官网去看吧 [Vuex Module](<https://vuex.vuejs.org/zh/guide/modules.html>)
+
+## vuex 简易实现
+
+初始化：Store声明、install实现，，kvuex.js：
+
+```js
+let Vue;
+function install(_Vue) {
+  Vue = _Vue;
+
+  // 这样store执⾏的时候，就有了Vue，不⽤import
+  // 这也是为啥Vue.use必须在新建store之前
+  Vue.mixin({
+    beforeCreate() {
+      // 这样才能获取到传递进来的store
+      // 只有root元素才有store，所以判断⼀下
+      if (this.$options.store) {
+        Vue.prototype.$store = this.$options.store;
+      }
+    },
+  });
+}
+class Store {
+  constructor(options = {}) {
+    // 利用 vue 数据响应式
+    this.state = new Vue({
+      data: options.state,
+    });
+    this.mutations = options.mutations || {};
+    this.actions = options.actions || {};
+      
+    options.getters && this.handleGetters(options.getters)
+  }
+  // 注意这⾥⽤箭头函数形式，后⾯actions实现时会有作⽤
+  commit = (type, arg) => {
+    this.mutations[type](this.state, arg);
+  };
+  dispatch = (type, arg) => {
+    const fn = this.actions[type];
+    return fn({ commit: this.commit, state: this.state }, arg);
+  }
+  
+  // {getters: {score(state){return state.xx}}}
+  handleGetters(getters) {
+    this.getters = {}; // store实例上的getters
+
+    // 定义只读的属性
+    Object.keys(getters).forEach(key => {
+        Object.defineProperty(this.getters, key, {
+            get: () => {
+                return getters[key](this.state);
+            }
+        })
+    })
+  }
+}
+export default { Store, install };
+
+```
+

@@ -92,3 +92,7 @@ optimize，当设置为 true 时，强制使用 CGLIB
 AspectJ 是一个基于 java 语言的 AOP 框架，spring 2.0 后就引入了对 AspectJ 的支持，新的 Spring 框架都建议使用 AspectJ 来开发 AOP
 
 使用 AspectJ 时间 AOP 有两种方式：一种是基于 XML 的声明式 AspectJ，另一种是基于注解的声明式 AspectJ
+
+#### 基于 XML 的声明式 AspectJ
+
+基于 XML 的声明式 AspectJ 是指通过 XML 文件来定义切面、切入点及通知，所有的切面、切入点和通知都必须定义在 `<aop:config>` 元素内

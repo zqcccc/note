@@ -1,0 +1,780 @@
+环境直接官网下载，mac 可以用 brew 安装
+
+安装完以后，vscode 装个微软的拓展，应该这个时候还会提示你要安装一些 go 的模块？然后你全装就对了
+
+## 应用程序入口
+
+1. 必须是 main 包： `package main`
+2. 必须是 main 方法： `func main()`
+3. 文件名不一定是 ` main.go`
+
+每个目录中的 Go 源文件只能属于同一个包（package），确保你的文件在组织上是分离的
+
+go 中 main 函数不支持返回任何返回值
+
+通过 `os.Exit()` 来返回状态
+
+main 函数不支持传入参数 func main(~~arg []string~~)
+
+在程序中直接通过 os.Args 获取命令行参数
+
+## 编写测试程序
+
+1. 源码文件以 _test 尾: `xxx_test.go`
+2. 测试方法名以 Test 开头: `func TestXXX(t *testing.T) {..}`
+
+如果你使用的是 vs code 编辑器的话，安装好了go的相关配置，会在测试文件中看到 ` run test | debug test `的提示，你点击 `run test` 之后在下面看不到 `t.Log()` 输出的内容就请把 `"go.testFlags": ["-v"],` 这行代码加入到你的 settings.json 文件中（设置 Workspace Settings。打开 .vscode/settings.json）
+
+## 声明变量
+
+```go
+var a int = 1
+var b int = 1
+
+var (
+	a int = 1
+    b int = 1
+)
+
+a:=1 // 这种写法只能在函数中
+b:=1
+```
+
+## 变量赋值
+
+与其他主要编程语言的差异：
+
+- 赋值可以进行自动类型推断
+- 在一个赋值语句中可以对多个变量进行同时赋值
+
+```go
+a:=1
+b:=1
+a,b=b,a// 这样就能交换两个值了
+```
+
+## 常量定义
+
+快速设置连续值
+
+```go
+const (
+	Monday = iota + 1
+    Tuseday
+    Wednesday
+    Thursday
+    Friday
+    Saturday
+    Sunday
+)
+
+const (
+	Open = 1 << iota
+    Close
+    Pending
+)
+```
+
+## 数据类型
+
+很多自己搜吧
+
+```go
+bool
+string
+int int8 int16 int32 int64
+uint uint8 uint16 uint32 uint64 uintptr
+byte // alias for uint8
+rune // alias for int32, represents a Unicode code point 
+float32 float64
+complex64 complex128 // 原生支持复数
+```
+
+与其他主要编程语言的差异
+
+1. Go语言不允许隐式类型转换
+2. 别名和原有类型本质一样也不能进行隐式类型转换
+
+类型预定义值
+
+1. `math. MaxInt64`
+2. `math. MaxFloat64`
+3.  `math. MaxUint32`
+
+## 指针类型
+
+与其他主要编程语言的差异
+
+1. 不支持指针运算
+2. string是值类型，其默认的初始化值为空字符串，而不是nill
+
+## 运算符
+
+Go语言没有前置的++,--
+
+### 用==比较数组
+
+- 相同维数且含有相同个数元素的数组才可以比较
+- 每个元素都相同的才相等
+
+不像其他语言那样会去比较数组的引用地址，go可以直接比较两个数组是否相等
+
+### 位运算符
+
+与其他主要编程语言的差异
+
+&^ 按位置零
+
+1&^0 = 1
+
+1&^1 = 0 
+
+0&^1 = 0
+
+0&^0 = 0
+
+## 循环
+
+与其他主要编程语言的差异
+
+Go 语言仅支持循环关键字 for
+
+`for (j: =7; j <=9; j++)`
+
+## if条件
+
+```go
+if condition {
+    // code to be executed if condition is true
+} else {
+    // code to be executed if condition is false
+}
+
+if condition-1 {// code to be executed if condition-1 is true
+} else if condition-2 {
+    // code to be executed if condition-2 is true
+} else {
+    // code to be executed if both condition1 and condition2 are false
+}
+```
+
+与其他主要编程语言的差异
+
+1. condition表达式结果必须为布尔值
+2. 支持变量赋值
+
+```go
+if var declaration; condition {
+    // declaration 只在这个中括号中可用
+    // code to be executed if condition is true
+    // 因为在 go 中赋值是可以多返回值的，所以可以一句话声明很多变量在这里面使用
+}
+```
+
+## Switch 条件
+
+```go
+switch os :=runtime.GoOS; os {
+    case "darwin":fmt. PrintIn("OS x.") 
+    //break
+    case "linux": fmt.Println("Linux.") 
+	default: 
+    //freebsd, openbsd,plan9, windows
+    fmt. Printf("%s.", os)
+}
+
+switch {
+    case 0 <= Num && Num <= 3:
+    fmt. Printf("0-3")
+    case 4 <= Num && Num <= 6:
+    fmt.Printf("4-6")
+    case 7 = Num && Num <= 9:
+    fmt. Printf("7-9")
+}
+```
+
+与其他主要编程语言的差异
+
+1. 条件表达式不限制为常量或者整数;
+2. 单个case中,可以出现多个结果选项,使用逗号分隔;
+3. 与C语言等规则相反, Go语言不需要用break来明确退出一个case;
+4. 可以不设定switch之后的条件表达式,在此种情况下,整个switch结构与多个 if..else...辑作用等同
+
+## 数组和切片
+
+数组的声明
+
+```go
+var a [3]int //声明并初始化为默认零值
+a[0]=1
+
+b := [3]int{1, 2, 3}//声明同时初始化
+c := [2][2]int{{1, 2}, {3, 4]} //多维数组初始化
+d := [...]int{1, 2, 3, 4}//声明同时初始化
+
+for idx, e:=range d {
+ // idx 用不到的时候可以写成 _
+}
+```
+
+数组截取
+
+`a[开始索引(包含),结束索引(不包含)]`
+
+```go
+a := [...]int{1, 2, 3, 4, 5} 
+a[1:2] //2
+a[1:3] //2,3
+a[1:len(a)] //2,3,4,5
+a[1:] //2,3,4,5
+a[:3] //1,2,3
+// 不支持倒着取数
+```
+
+切片内部结构
+
+len：元素个数
+
+cap：内部数组的容量
+
+```go
+s2 := make([]int, 3, 5)
+// 现在s2容量有5个，但是只初始化了前3个，此时可访问的也是前三个
+s2 = append(s2, 1)
+// 现在s2容量有5个，此时可访问的也是前4个
+```
+
+### 切片共享结构
+
+切片需要增长的时候每次都是前值的两倍
+
+slice 是一种结构体
+
+当切到相同的两个切片，其中一个改变，另一个也改变
+
+### 数组 vs 切片
+
+数组容量不可伸缩，切片可以
+
+数组可以比较，切片不可以
+
+## Map
+
+Map声明
+
+```go
+m :=map[string]int{"one" : 1, "two": 2, "three": 3}
+m1 :=map[string]int{}
+m1["one"] = 1
+m2 := make(map[string]int, 10 /*Initial Capacity*/)//为什么不初始化len?
+```
+
+在初始化的时候都是赋予 0，但在 map 中不能这样去初始化
+
+map 容量也是可以增长的，但是最好是定义好 map 的大小，不然会有不必要的复制消耗
+
+如果某key的value没有赋过值这个时候访问是 0，我们人为的也可以去赋值0
+
+所以在判断是不是真的有值的时候要用 if 去判断
+
+```go
+if v,ok:=m[3]; ok {
+    // 真的有值
+} else {
+    // 真的没值
+}
+```
+
+遍历map
+
+```go
+m :=map[string]int{"one" : 1, "two": 2, "three": 3}
+for k, v := range m {
+    // k = key , v = value
+}
+```
+
+- Map的value可以是一个方法
+- 与Go的Docktype接口方式一起,可以方便的实现单一方法对象的工厂模式
+
+Go的内置集合中没有Set实现,可以mapltype]bool
+
+1. 元素的唯一性
+2. 基本操作
+   1. 添加元素
+   2. 判断元素是否存在
+   3. 删除元素
+   4. 元素个娄
+
+## 字符串
+
+与其他主要编程语言的差异
+
+```go
+s := "hello世界!"
+for i, ch := range []rune(s) { // []rune(s)这个是转化后最方便用的，它会自动将所有的字符变成4字节的rune数组的新空间
+    fmt.Printf("(%d %c) ", i, ch)
+}
+```
+
+
+
+1. string 是数据类型,不是引用或指针类型
+2. string 是只读的 byte slice, len 函数可以它所包含的 byte 数
+3. string 的 byte 数组可以存放任何数据
+
+string 是不可变的 byte slice
+
+Unicode UTF8
+
+1. Unicode 是一种字符集(code point)
+2. UTF8 是 unicode 的存储实现(转换为字节序列的规则)
+
+rune 可以取出字符串的 unicode
+
+| 字符          | “中”             |
+| ------------- | ---------------- |
+| Unicode       | 0x4E2D           |
+| UTF-8         | 0xE4B8AD         |
+| string/[]byte | [0xE4,0xB8,0xAD] |
+
+http://www.ruanyifeng.com/blog/2007/10/ascii_unicode_and_utf-8.html?from=timeline
+
+https://golang.org/pkg/strings/
+
+https://golang.org/pkg/strconv/
+
+## 函数
+
+与其他主要编程语言的差异
+
+1. 可以有多个返回值. 
+2. 所有参数都是值传递: slice, map, channel会有传引用的错觉
+3. 函数可以作为变量的值
+4. 函数可以作为参数和返回值
+
+```go
+// 延时一秒后返回入参
+func SlowFun(op int) int {
+    time.Sleep(time.Second * 1)
+    return op
+}
+
+
+// 定义一个函数timeSpent帮助记录入参函数的执行耗时
+// 入参是一个函数, 返回也是一个函数
+func timeSpent(入参函数名 func(op int) int) func(op int) int {
+    return func(返回函数的参数 int) int {
+        start := time.Now()
+        ret := 入参函数名(返回函数的参数) // 执行有入参的该函数
+        fmt.Println("该入参函数执行结果：", ret)
+        fmt.Println("时间损耗:", time.Since(start).Seconds())
+        return ret
+    }
+}
+
+func TestFn(t *testing.T) {
+// 给timeSpent入参一个函数, 我们返回一个函数, 这个函数执行这个入参函数并打印该的执行时间
+// tsSF 得到的就是返回的函数，我们给这个函数提供一个 「返回函数的参数」-> 10
+tsSF := timeSpent(SlowFun)
+// 打印执行
+t.Log(tsSF(10))
+}
+
+```
+
+可变参数和 defer
+
+```go
+func sum(ops ...int) int {
+ s := 0
+ for _, op := range ops {
+ 	s += op
+ }
+ return s
+}
+```
+
+```go
+func TestDefer(t *testing.T) {
+    defer func() {
+        t.Log("Clear resources")
+    }()
+    t.Log("Started")
+    panic("Fatal error”) //defer仍会执⾏
+}
+```
+
+## 面向对象编程
+
+### Is Go an object-oriented language? 
+
+Yes and no. Although Go has types and methods and allows an object-oriented style of programming, there is no type hierarchy. The concept of “interface” in Go provides a different approach that we believe is easy to use and in some ways more general. There are also ways to embed types in other types to provide something analogous—but not identical—to subclassing. Moreover, methods in Go are more general than in C++ or Java: they can be defined for any sort of data, even built-in types such as plain, “unboxed” integers. They are not restricted to structs (classes).
+
+Also, the lack of a type hierarchy makes “objects” in Go feel much more lightweight than in languages such as C++ or Java.
+
+### 封装数据和⾏行行为
+
+结构体定义
+
+```go
+type Employee struct {
+    Id   string  
+    Name string  
+    Age  int 
+}
+e := Employee{"0", "Bob", 20} 
+e1 := Employee{Name: "Mike", Age: 30} 
+e2 := new(Employee) //注意这⾥里里返回的引⽤用/指针，相当于 e := &Employee{}
+e2.Id = "2"  //与其他主要编程语⾔言的差异：通过实例的指针访问成员不不需要使⽤用-> 
+e2.Age = 22 
+e2.Name = “Rose
+```
+
+### 行为（方法）定义
+
+与其他主要编程语⾔言的差异
+
+```go
+type Employee struct { 
+    Id   string 
+    Name string 
+    Age  int 
+}
+//第一种定义⽅方式在实例对应⽅方法被调用时，实例的成员会进行值复制 
+func (e Employee) String() string { 
+    return fmt.Sprintf("ID:%s-Name:%s-Age:%d", e.Id, e.Name, e.Age) 
+} 
+//通常情况下为了避免内存拷贝我们使用第二种定义⽅方式 
+func (e *Employee) String() string { 
+    return fmt.Sprintf("ID:%s/Name:%s/Age:%d", e.Id, e.Name, e.Age) 
+}
+```
+
+### 定义交互协议
+
+#### Duck typing 
+
+长得像鸭子就是鸭子，描述事物的外部行为而非内部结构
+
+严格来说 go 属于结构化类型系统，类似 duck typing
+
+python 版：
+
+```python
+def download(retriever):
+  return retriever.get("www.hello.com")
+# 运行时才知道传入的 retriever 有没有 get
+# 需要注释来说明接口
+```
+
+c++ 版：
+
+```c++
+template <class R>
+string download(const R& retriever) {
+  return retriever.get("www.hello.com");
+}
+// 编译时才知道传入的 retriever 有没有 get
+// 需要注释来说明接口
+```
+
+java
+
+```java
+<R extends Retriever>
+String download(R r) {
+  return r.get("www.hello.com");
+}
+// 传入的参数必须实现 Retriever 接口
+// 不是 duck typing
+```
+
+go
+
+```go
+
+```
+
+在 go 中
+
+- 接口由使用者定义
+
+接口与依赖
+
+```go
+// 接口定义
+type Programmer interface { 
+    WriteHelloWorld() Code 
+}
+// 接口实现
+type GoProgrammer struct {
+}
+func (p *GoProgrammer) WriteHelloWorld() Code {
+	return "fmt.Println(\"Hello World!\")"
+}
+```
+
+与其他主要编程语⾔的差异
+
+1. 接口为⾮⼊侵性，实现不依赖于借口定义
+2. 所以接口的定义可以包含在接口使用者包内
+
+⾃定义类型
+
+`type IntConvertionFn func(n int) int`
+
+`type MyPoint int`
+
+### 复合
+
+Go 不⽀持继承，但可以通过复合的⽅式来复⽤
+
+### 匿名类型嵌⼊
+
+与其他主要编程语⾔的差异
+
+它不是继承，如果我们把“内部 struct ”看作⽗类，把“外部 struct” 看作⼦类， 会发现如下问题：
+
+1. 不⽀持⼦类替换
+2. ⼦类并不是真正继承了⽗类的⽅法
+   - ⽗类的定义的⽅法⽆法访问⼦类的数据和⽅法
+
+### 多态与空接⼝
+
+空接⼝与断⾔
+
+1. 空接⼝可以表示任何类型
+2. 通过断⾔来将空接⼝转换为制定类型
+
+### Go 接⼝最佳实践
+
+倾向于使⽤⼩的接⼝定义，很多接 ⼝只包含⼀个⽅法
+
+较⼤的接⼝定义，可以由多个⼩接 ⼝定义组合⽽成
+
+只依赖于必要功能的最⼩接⼝
+
+## Go 的错误机制
+
+1. 没有异常机制
+2. error 类型实现了 error 接⼝ `type error interface { Error() string }`
+3. 可以通过 errors.New 来快速创建错误实例  `errors.New("n must be in the range [0,100]")`
+
+### 最佳实践
+
+定义不同的错误变量，以便于判断错误类型
+
+```go
+var LessThanTwoError error = errors.New("n must be greater than 2")
+var GreaterThanHundredError error = errors.New("n must be less than 100")
+
+func TestGetFibonacci(t *testing.T) {
+	var list []int
+    list, err := GetFibonacci(-10)
+    if err == LessThanTwoError {
+    	t.Error("Need a larger number")
+    }
+    if err == GreaterThanHundredError {
+    	t.Error("Need a larger number")
+    }
+}
+```
+
+### panic
+
+- panic ⽤于不可以恢复的错误
+- panic 退出前会执⾏ defer 指定的内容
+
+### panic vs. os.Exit
+
+- os.Exit 退出时不会调⽤ defer 指定的函数
+- os.Exit 退出时不输出当前调⽤栈信息
+
+### recover
+
+```go
+defer func() {
+if err := recover(); err != nil {
+ //恢复错误
+	 	 }
+}()
+```
+
+### 最常⻅的”错误恢复“ 
+
+```go
+defer func() {
+if err := recover(); err != nil {
+ log.Error(“recovered panic”,err)
+	 	 }
+}()
+```
+
+形成僵⼫服务进程，导致 health check 失效。
+
+“Let it Crash!” 往往是我们恢复不确定性错误的最好⽅法。
+
+## package 
+
+1. 基本复⽤模块单元 以⾸字⺟⼤写来表明可被包外代码访问
+2. 代码的 package 可以和所在的⽬录不⼀致
+3. 同⼀⽬录⾥的 Go 代码的 package 要保持⼀致
+
+### init ⽅法
+
+- 在 main 被执⾏前，所有依赖的 package 的 init ⽅法都会被执⾏
+- 不同包的 init 函数按照包导⼊的依赖关系决定执⾏顺序
+- 每个包可以有多个 init 函数
+- 包的每个源⽂件也可以有多个 init 函数，这点⽐较特殊
+
+package
+
+1. 通过 go get 来获取远程依赖
+   - go get -u 强制从⽹络更新远程依赖
+2. 注意代码在 GitHub 上的组织形式，以适应 go get
+   - 直接以代码路径开始，不要有 src
+
+## 依赖管理
+
+Go 未解决的依赖问题 
+
+1. 同⼀环境下，不同项⽬使⽤同⼀包的不同版本
+2. ⽆法管理对包的特定版本的依赖
+
+### vendor 路径
+
+ 随着 Go 1.5 release 版本的发布，vendor ⽬录被添加到除了 GOPATH 和 GOROOT 之外的依赖⽬录查找的解决⽅案。在 Go 1.6 之前，你需要⼿动的设置环境变量 
+
+查找依赖包路径的解决⽅案如下：
+
+1. 当前包下的 vendor ⽬录
+2. 向上级⽬录查找，直到找到 src 下的 vendor ⽬录
+3. 在 GOPATH 下⾯查找依赖包
+4. 在 GOROOT ⽬录下查找
+
+常⽤的依赖管理⼯具
+
+godep https://github.com/tools/godep 
+
+glide https://github.com/Masterminds/glide 
+
+dep https://github.com/golang/dep 
+
+## 协程机制
+
+### Thead vs. Groutine 
+
+1. 创建时默认的 stack 的⼤⼩
+   - JDK5 以后 Java Thread stack 默认为1M
+   - Groutine 的 Stack 初始化⼤⼩为2K
+2. 和 KSE （Kernel Space Entity) 的对应关系
+   - Java Thread 是 1:1
+   - Groutine 是 M:N
+
+### 共享内存并发机制
+
+#### Lock
+
+```java
+Lock lock = ...;
+lock.lock();
+try{
+ 	//process (thread-safe)
+}catch(Exception ex){
+
+}finally{
+	lock.unlock();
+}
+```
+
+#### WaitGroup
+
+```go
+var wg sync.WaitGroup
+for i := 0; i < 5000; i++ {
+	wg.Add(1)
+	go func() {
+		defer func() {
+			wg.Done()
+		}()
+		…
+	}()
+}
+wg.Wait()
+```
+
+### CSP 并发机制
+
+Communicating sequential processes
+
+CSP vs. Actor
+
+- 和Actor的直接通讯不同，CSP模式则是通过Channel进⾏通讯的，更松耦合⼀些。
+- Go中channel是有容量限制并且独⽴于处理Groutine，⽽如Erlang，Actor模式 中的mailbox容量是⽆限的，接收进程也总是被动地处理消息。
+
+### 多路选择和超时控制
+
+#### select
+
+```go
+// 多渠道的选择
+select {
+	case ret := <-retCh1:
+		t.Logf("result %s", ret)
+	case ret :=<-retCh2:
+		t.Logf("result %s", ret)
+ 	default:
+		t.Error(“No one returned”)
+}
+// 超时控制
+select {
+	case ret := <-retCh:
+		t.Logf("result %s", ret)
+	case <-time.After(time.Second * 1):
+		t.Error("time out")
+}
+```
+
+### channel 的关闭和⼴播
+
+#### channel 的关闭
+
+- 向关闭的 channel 发送数据，会导致 panic
+- v, ok <-ch; ok 为 bool 值，true 表示正常接受，false 表示通道关闭
+- 所有的 channel 接收者都会在 channel 关闭时，⽴刻从阻塞等待中返回且上 述 ok 值为 false。这个⼴播机制常被利⽤，进⾏向多个订阅者同时发送信号。 如：退出信号。
+
+### 任务的取消
+
+```go
+// 获取取消通知
+func isCancelled(cancelChan chan struct{}) bool {
+	select {
+		case <-cancelChan:
+			return true
+		default:
+			return false
+	}
+}
+
+// 发送取消消息
+func cancel_1(cancelChan chan struct{}) {
+	cancelChan <- struct{}{}
+}
+
+// 通过关闭 Channel 取消
+func cancel_2(cancelChan chan struct{}) {
+	close(cancelChan)
+}
+```
+
+### Context 与任务取消
+
+Context
+
+- 根 Context：通过 context.Background () 创建
+- ⼦ Context：context.WithCancel(parentContext) 创建
+- ctx, cancel := context.WithCancel(context.Background())
+- 当前 Context 被取消时，基于他的⼦ context 都会被取消
+- 接收取消通知 <-ctx.Done()
+
