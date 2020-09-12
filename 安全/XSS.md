@@ -1,3 +1,5 @@
+react 项目里不会有 XSS 问题，除非使用 `dangerouslySetInnerHTML`
+
 ## XSS 简介
 
 XSS 攻击，即跨站脚本攻击（Cross-Site Script）

@@ -144,7 +144,23 @@ a 代表人眼视角，h 代表像素间距，d 代表肉眼与屏幕的距离�
 
 这是因为在2倍屏时1 CSS 像素实际对应2个物理像素, 所以为了实现真正的 1px 粗细，我们得使用 0.5px 来模拟。目前除 ios8+ 可以直接使用 0.5px 单位外，其余皆得通过模拟的办法搞定。具体实现办法有很多，大家可以参考：[7种方法解决移动端Retina屏幕1px边框问题](http://www.jianshu.com/p/7e63f5a32636)。
 
-注：我一般使用上面 1px demo 中的方法。
+注：我一般使用上面 1px demo 中的方法。即伪类加 transform
+
+```css
+.demo::after {
+    content: "";
+    width: 100%;
+    height: 1px;
+    transform: scaleY(0.5);
+    background: #f00;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+```
+
+
 
 ## 附：iPhone 6/6s/7 plus 的 3 倍屏
 

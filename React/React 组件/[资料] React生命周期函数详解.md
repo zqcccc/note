@@ -3,6 +3,14 @@
 React 的生命周期本质上就是一系列的钩子函数，可以分为 3 个时期：挂载、更新和卸载。React 16 还新增错误处理的钩子函数。要掌握 React，生命周期是必不可少的一部分。
 注意：本文只对目前最新的 React 生命周期展开详解（v16.4.0）。
 
+被废弃的周期为
+
+- ~~componentWillMount~~
+- ~~componentWillReceiveProps~~
+- ~~componentWillUpdate~~
+
+被废弃的生命周期目前也暂时可以用，只是名字前面加了 `UNSAFE_`
+
 ## 生命周期流程图
 
 ![图片](https://p.qpic.cn/qqconadmin/0/9089fc283c82442f955ad840576c207d/0)

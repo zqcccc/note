@@ -33,7 +33,7 @@ Provider 使用了 React 中的 context 对象，向多个层级下的子组件�
 
 以下是 react-redux 中 Provider 模块的部分源码(版本为 5.0.7)：
 
-```
+```js
 export function createProvider(storeKey = 'store', subKey) {
     const subscriptionKey = subKey || `${storeKey}Subscription`
 

@@ -16,7 +16,7 @@
 
 `<App />` 的代码为：
 
-```
+```jsx
 const ThemeContext = React.createContext('light');
 
 class App extends React.Component {
@@ -51,7 +51,7 @@ class App extends React.Component {
 
 这里我们为了验证我们的功能，使用了一个中间层级的组件 `<Toolbar />` ：
 
-```
+```jsx
 function Toolbar(props) {
     return (
         <div>
@@ -63,7 +63,7 @@ function Toolbar(props) {
 
 我们最终的目标组件为：
 
-```
+```jsx
 function Button(props) {
     return (
         <button className={props.theme + "-button"}>ContextButton</button>
