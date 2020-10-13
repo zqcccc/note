@@ -15,7 +15,7 @@
 - 强类型与弱类型（类型安全）
 - 静态类型与动态类型（类型检查）
 
-### 强弱类型
+###  强弱类型
 
 强弱类型其实也没有一个官方说话，比较靠谱的说法是，强类型在语言层面限制函数的实参类型必须与形参类型相同的就是强类型，弱类型则没有这样的限制，运行可以有问题，但语法上没有问题
 
@@ -29,7 +29,7 @@
 
 *变量类型允许随时改变的特点，不是强弱类型的差异*
 
-### 静态类型与动态类型
+###  静态类型与动态类型
 
 这里的定义没什么争议
 
@@ -114,7 +114,7 @@ flow 就是在加了一个代码编译的过程，babel 也是常用来编译代
 
 执行 `yarn babel src -d dist` 就可以用 babel 去编译转换文件了
 
-### 开发工具插件
+###  开发工具插件
 
 上面讲的方法都是每回去命令行去输入命令才能知道编译是不是正常，如果能在开发工具（VSCode）上就给出提示当然会是更好的体验，在 VSCode 的拓展市场里，`Flow Language Support` 就是为这个而生的
 
@@ -122,7 +122,7 @@ flow 就是在加了一个代码编译的过程，babel 也是常用来编译代
 
 [flow 各编辑器支持插件](https://flow.org/en/docs/editors/)
 
-### 类型推断 Type Inference
+###  类型推断 Type Inference
 
 ```js
 function square(n) { // 这里不加注释也可以从后面的 n*n 推断出 n 是数字
@@ -133,11 +133,11 @@ square("100"); // ide 报错
 
 即便 flow 有类型推断，还是建议写类型注解
 
-### 类型注解 Type Annotations
+###  类型注解 Type Annotations
 
 就是在变量后面加 `: type` 来指明类型
 
-### 原始类型 Primitive Types
+###  原始类型 Primitive Types
 
 - string
 - number
@@ -150,7 +150,7 @@ square("100"); // ide 报错
   - undefined
 - symbol
 
-### 数组类型 Array Types
+###  数组类型 Array Types
 
 需要指定泛型参数 `const arr: Array<number> = [1, 2, 3]`
 
@@ -158,7 +158,7 @@ square("100"); // ide 报错
 
 还能像对象字面量一样 `const foo: [string, number] = ['foo', 100]` 这样的就只能是两位元素的固定长度数组，应该叫元组
 
-### 对象类型 Object Types
+###  对象类型 Object Types
 
 ```js
 const obj1: { foo: string, bar: number } = {
@@ -173,7 +173,7 @@ const obj1: { [string]: string } = {
 }
 ```
 
-### 函数类型 Function Types
+###  函数类型 Function Types
 
 ```js
 function foo (callback: (string, number) => void) {
@@ -181,7 +181,7 @@ function foo (callback: (string, number) => void) {
 }
 ```
 
-### 特殊类型
+###  特殊类型
 
 字面量类型
 
@@ -199,7 +199,7 @@ const gender: ?number = null // 等于下一个
 const gender: number | null | void = null // maybe 类型
 ```
 
-### Mixed & Any
+###  Mixed & Any
 
 ```js
 // mixed 就是所有的类型，any 也是一样
@@ -246,11 +246,11 @@ Typescript 适合开发大型长周期应用
 
 安装 `yarn add typescript --dev` ，vscode 默认支持 ts 文件的语法检查，写好 ts 文件后，执行 `yarn tsc 文件名` 就可以讲 ts 编译成 js 了
 
-###配置
+### 配置
 
 编译整个项目的时候，一般会有一个配置文件，`yarn tsc --init` 就可以生成 `tsconfig.json` 的配置文件了，如果是整个项目的编译的话，用 `yarn tsc` 命令，要注意配置的源文件目录和生成目录
 
-###原始类型 Primitive Types
+### 原始类型 Primitive Types
 
 跟 flow 差不多
 
@@ -262,7 +262,7 @@ const c: boolean = true;
 const d: void = undefined; // 严格模式下只能是 undefined，非严格模式下还可以是 null
 ```
 
-###标准库声明
+### 标准库声明
 
 内置对象类型，如果 `tsconfig.json` 里 `target` 设置的是 `es5`，那就不能用 `ES2015` 里的新对象，用了就报错
 
@@ -273,7 +273,7 @@ const d: void = undefined; // 严格模式下只能是 undefined，非严格模�
 
 _标准库就是内置对象所对应的声明_
 
-###中文错误消息
+### 中文错误消息
 
 `yarn tsc --local zh-CN` 这样可以在命令行编译的时候使用中文的错误消息
 
@@ -281,14 +281,14 @@ VSCode 里是在配置里找到 Typescript 拓展，设置项 local 换成 zh-CN
 
 但其实提示变成中文的话，直接复制中文提示不利于在搜索引擎里去搜索问题，还是用英文好
 
-###作用域
+### 作用域
 
 不同文件的相同名字变量的冲突
 
 - 使用 IIFE (Immediately Invoked Function Expression)
 - 使用模块导出 `export {...}`
 
-###Typescript object 类型
+### Typescript object 类型
 
 Typescript 里 `object` 不单指 js 里的普通对象，而是泛指所有的非原始类型
 
@@ -299,7 +299,7 @@ const obj: { a: number } = { a: 1 }; // 这种才是专门接收一个 js Object
 // 更好的定义类型应该用接口 interface
 ```
 
-###Typescript 数组类型
+### Typescript 数组类型
 
 ```ts
 const arr1: Array<number> = [1, 2, 3];
@@ -312,7 +312,7 @@ function sum(...args: number[]) {
 sum(1, 2, "foo"); // 这里 ’foo‘ 会报错
 ```
 
-###Typescript 元组
+### Typescript 元组
 
 Tuple Types，元组就是明确元素数量和各元素类型的数组，各个元素的类型没必要完全相同
 
@@ -325,7 +325,7 @@ Object.entries({
 });
 ```
 
-###Typescript 枚举类型
+### Typescript 枚举类型
 
 Enum Types
 
@@ -376,7 +376,7 @@ const enum PostStatus {
 
 常量枚举在编译后就会被移除掉，使用枚举的地方都会被替换成具体的数值，然后后面会跟上枚举名称的注释
 
-###Typescript 函数类型
+### Typescript 函数类型
 
 Function Types，主要是定义输入输出，参数数量和类型要和定义的一致，如果要参数可选就要在参数后面加个问号或者添加 ES6 的默认参数，可选参数或者默认参数都要在参数项的最后，因为参数都是按照位置进行传递的，如果可选参数出现在了必选参数的前面，那必选参数的不能拿到正常的值了，如果要使用任意数量的参数就要用 ES6 的剩余参数
 
@@ -384,11 +384,11 @@ Function Types，主要是定义输入输出，参数数量和类型要和定义
 
 函数表达式可以在变量名后面再接一个类似箭头函数的式子
 
-###Typescript 任意类型
+### Typescript 任意类型
 
 `JSON.stringify` 方法就是可以接受任意类型的参数的，any 类型的值还是动态类型，Typescript 不会去检查 any 类型，扔可以在 any 类型去调用任意的成员，语法上都不会报错，但是执行就没有保障了，any 类型就还有存在类型安全的问题，不要轻易使用 any 类型
 
-###Typescript 隐式类型推断
+### Typescript 隐式类型推断
 
 Type Inference
 
@@ -401,7 +401,7 @@ let foo; // 这种就会被推断成 any
 
 即使有隐式类型推断，但还是推荐明确变量的类型
 
-###Typescript 类型断言
+### Typescript 类型断言
 
 Type assertions 是在编译阶段的概念，不是执行阶段的
 
@@ -415,7 +415,7 @@ const num2 = <number>res; // JSX 下不能使用
 const square = num1 * num1;
 ```
 
-###Typescript 接口
+### Typescript 接口
 
 Interface 就是来约束对象的结构，一个对象如果要实现一个接口就要拥有这个接口所约束的所有成员，interface 在编译后也是会被去除掉的
 
@@ -446,7 +446,7 @@ cache.foo = "value1";
 cache.bar = "value2";
 ```
 
-###Typescript 类
+### Typescript 类
 
 classes 描述一类具体事物的抽象特征，ES6 以前，函数 + 原型模拟实现类，ES6 开始 JavaScript 中有了专门的 class，TypeScript 增强了 class 的相关语法
 
@@ -517,7 +517,7 @@ class Person {
 }
 ```
 
-###类与接口
+### 类与接口
 
 就好比手机和座机，手机和座机都可以打电话，但是座机功能比较少，不能发短信，没有 app，手机却都可以
 
@@ -544,7 +544,7 @@ class Person implements Eat, Run {
 }
 ```
 
-###抽象类
+### 抽象类
 
 抽象类和接口有点类似，不同的是，抽象类可以包含具体的实现，而接口只抽象成员
 
@@ -566,7 +566,7 @@ d.eat("apple");
 d.run(100);
 ```
 
-###泛型
+### 泛型
 
 generics 就是指我们在定义函数、接口或类的时候，我们没有去指定具体的类型，等我们去使用的时候再去指定具体的类型的特征，这样是为了极大的复用我们的代码
 
@@ -588,7 +588,7 @@ const res = createArray<number>(3, 100);
 const res = createArray<string>(3, "foo");
 ```
 
-###类型声明
+### 类型声明
 
 Type Declaration，实际开发中我们会使用第三方模块，第三方模块不一定是用 TypeScript 编写的，所以它的成员就没有强类型的体验
 
