@@ -1,4 +1,4 @@
-#ECMAScript
+# ECMAScript
 es6 也是 es2015，并且以后都以年份命名，有的人也会用 es6 来泛指 es6 及以后发布的新的内容，因为 es6 相比 es5.1 变化比较大，但 es6 就只是 es2015 而已，像 async/await 就不是 es2015 的标准，是 es2017 的内容
 需要阅读原文
 [ECMAScript® 2015 Language Specification](http://www.ecma-international.org/ecma-262/6.0/)
@@ -12,7 +12,7 @@ es2015 的新特性
 
 [查看 node 各版本支持新标准的情况](node.green)
 
-##作用域
+## 作用域
 
 js 原本没有块级作用域
 
@@ -47,7 +47,9 @@ const 就是在 let 基础上多了“只读”属性，变量一旦声明就不
 
 现在一般是不用 var，然后主要用 const，看需要再用 let
 
-##Destructuring ###数组解构
+## Destructuring 
+
+### 数组解构
 很简单，就是原来变量名位置变成了方括号，然后自己根据需要去指定相应位置的变量名就行
 
 ```js
@@ -59,7 +61,7 @@ const [a, ...rest] = arr; // ...只能用在最后一个成员变量
 const [, , , novar = "abc"] = arr; // 指定默认值
 ```
 
-###对象解构
+### 对象解构
 对象解构是原来变量名位置多了花括号，对象是根据属性名去提取解构的
 因为提取的变量名可能和现在的作用域里的变量名相同导致冲突，所以对象解构是可以重命名的
 
@@ -69,7 +71,7 @@ const a = 123;
 const { a: objA } = obj; // 重命名以解决命名冲突
 ```
 
-##模板字符串
+## 模板字符串
 就是\`\`
 支持换行，嵌入变量或者任何 JavaScript 的代码
 
@@ -89,7 +91,8 @@ const result = myTagFunc`hey, ${name} is a ${gender}.`;
 
 标签模板字符串就是对模板字符串进行更复杂的加工
 
-##字符串
+## 字符串
+
 新增方法
 
 - `includes()`
@@ -98,7 +101,8 @@ const result = myTagFunc`hey, ${name} is a ${gender}.`;
 
 用来查找字符串，都返回布尔值
 
-##参数默认值
+## 参数默认值
+
 形参默认值 default parameters
 
 ```js
@@ -107,7 +111,7 @@ function opt(a, b = "123") {
 }
 ```
 
-##剩余参数
+## 剩余参数
 
 ```js
 function opt(a, ...rest) {
@@ -126,7 +130,7 @@ console.log.apply(console, arr);
 console.log(...arr);
 ```
 
-##箭头函数
+## 箭头函数
 
 arrow function 会让代码更简短
 
@@ -152,7 +156,7 @@ obj.sayHiArrowFunc(); // hi, undefined
 obj.sayHiAsync(); // hi, tom
 ```
 
-##对象字面量增强
+## 对象字面量增强
 
 ```js
 const a = "a";
@@ -167,12 +171,12 @@ const obj = {
 // 以上三点都是 es6 才有的
 ```
 
-##对象拓展方法
+## 对象拓展方法
 
 - `Object.assign` 将多个源对象中的属性复制到一个目标对象中（浅拷贝）
 - `Object.is` 可以区分 `+0` 和 `-0`，`NaN` 也等于 `NaN`（其实用的不多，业务一般不涉及这些）
 
-##Proxy
+## Proxy
 
 代理对象
 
@@ -251,7 +255,7 @@ const listProxy = new Proxy(list, {
 
 Proxy 是以非侵入的方式监管了对象读写
 
-##Reflect
+## Reflect
 
 统一对象操作 API
 
@@ -278,24 +282,24 @@ const personProxy = new Proxy(person, {
 `Reflect` 对象的意义可能是，统一提供了一套用于操作对象的 API
 以前的 `in`，`delete`，`Object.keys` 一下是操作符的，一下又是方法的，比较混乱，`Reflect` 把这些操作都统一到了一起
 
-##Promise
+## Promise
 
 一种较优的异步解决方案，链式调用，解决了传统异步编程中回调函数嵌套过深的问题
 
-##class 类
+## class 类
 
 以前都是用 function 和 prototype 去实现的类，现在 `class` 更像是一个语法糖
 
-###static 静态成员
+### static 静态成员
 
 实例方法是新建实例后才能调用
 静态方法是用类去调用
 
-###extends 类的继承
+### extends 类的继承
 
 更直观，更方便
 
-##Set
+## Set
 
 值不重复的集合
 
@@ -308,11 +312,11 @@ const res = Array.from(new Set(arr));
 const res = [...new Set(arr)];
 ```
 
-##Map
+## Map
 
 让 key 可以不光只是 string，Map 才是真正意义上的键值对集合
 
-##Symbol
+## Symbol
 
 一种全新的原始数据类型，用来表示一个第一无二的值
 
@@ -338,7 +342,7 @@ console.log(obj.toString()); // [object xxx]
 
 用 `Object.getOwnPropertySymbols()` 可以获取对象所有的 Symbol key
 
-##for of 循环
+## for of 循环
 
 for 循环适合遍历数组
 
@@ -351,7 +355,7 @@ arr.some() 或者 arr.every() 才能跳出循环
 for of 可以直接跳出循环
 for of 不能直接遍历 Object
 
-##Iterable 可迭代接口
+## Iterable 可迭代接口
 
 ES 中能够表示有结构的数据类型越来越多，ES2015 提供了 Iterable 接口，实现 Iterable 接口就是 for...of 的前提
 
@@ -386,13 +390,13 @@ for (const item of obj) {
 // 循环 baz
 ```
 
-##Iterator 迭代器模式
+## Iterator 迭代器模式
 
 对象实现对外统一的数据遍历接口，调用者就不用关心内部的数据结构如何去遍历，只需要关心自己的逻辑就行了
 
 ES2015 是在语言层面实现了迭代器模式，可以适用于任何数据结构，只要实现这个迭代器的逻辑就行了
 
-##Generator 生成器
+## Generator 生成器
 
 避免异步编程中回调嵌套过深的问题
 
@@ -404,7 +408,7 @@ generator 函数要配合 `yield` 关键字去使用
 
 generator 对象是惰性执行的，调用一次才会继续向下执行到 `yield` 的语句，直到执行完
 
-###应用
+### 应用
 
 ```js
 // 发号器
@@ -441,17 +445,17 @@ for (const item of obj) {
 }
 ```
 
-##ES Modules
+## ES Modules
 
 语言层面的模块化标准
 
-##ECMAScript 2016
+## ECMAScript 2016
 
 新增 `Array.prototype.includes` 方法，原来的 indexOf 方法也能查找，不过不能查找到 NaN
 
 新增指数运算符，以前用的是 `Math.pow(2, 10)` 来求的 2 的 10 次方，指数运算符就是写成 `2 ** 10`
 
-##ECMAScript 2017
+## ECMAScript 2017
 
 - Object.values
 - Object.entries
