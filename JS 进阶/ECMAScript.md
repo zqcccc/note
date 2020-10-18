@@ -1,6 +1,7 @@
 # ECMAScript
 es6 也是 es2015，并且以后都以年份命名，有的人也会用 es6 来泛指 es6 及以后发布的新的内容，因为 es6 相比 es5.1 变化比较大，但 es6 就只是 es2015 而已，像 async/await 就不是 es2015 的标准，是 es2017 的内容
-需要阅读原文
+
+需要阅读原文的话
 [ECMAScript® 2015 Language Specification](http://www.ecma-international.org/ecma-262/6.0/)
 
 es2015 的新特性
@@ -318,7 +319,7 @@ const res = [...new Set(arr)];
 
 ## Symbol
 
-一种全新的原始数据类型，用来表示一个第一无二的值
+一种全新的原始数据类型，用来表示一个独一无二的值
 
 `typeof` 判断也是 `symbol`
 
