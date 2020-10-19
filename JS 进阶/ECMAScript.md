@@ -1,4 +1,5 @@
 # ECMAScript
+
 es6 也是 es2015，并且以后都以年份命名，有的人也会用 es6 来泛指 es6 及以后发布的新的内容，因为 es6 相比 es5.1 变化比较大，但 es6 就只是 es2015 而已，像 async/await 就不是 es2015 的标准，是 es2017 的内容
 
 需要阅读原文的话
@@ -287,7 +288,7 @@ const personProxy = new Proxy(person, {
 
 一种较优的异步解决方案，链式调用，解决了传统异步编程中回调函数嵌套过深的问题
 
-## class 类
+## Class 类
 
 以前都是用 function 和 prototype 去实现的类，现在 `class` 更像是一个语法糖
 
