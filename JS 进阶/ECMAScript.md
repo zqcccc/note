@@ -74,8 +74,8 @@ const { a: objA } = obj; // 重命名以解决命名冲突
 ```
 
 ## 模板字符串
-就是\`\`
-支持换行，嵌入变量或者任何 JavaScript 的代码
+
+就是\`\`支持换行，嵌入变量或者任何 JavaScript 的代码
 
 _带标签的模板字符串_
 
@@ -157,6 +157,8 @@ obj.sayHi(); // hi, tom
 obj.sayHiArrowFunc(); // hi, undefined
 obj.sayHiAsync(); // hi, tom
 ```
+
+没有自己的 this，不能 new，没有 arguments，不能用 yield
 
 ## 对象字面量增强
 
@@ -353,8 +355,11 @@ for in 循环适合遍历键值对
 for of 作为遍历所有数据结构的统一方式（数据有实现 Iterable 接口）
 
 arr.forEach() 不能跳出循环
+
 arr.some() 或者 arr.every() 才能跳出循环
+
 for of 可以直接跳出循环
+
 for of 不能直接遍历 Object
 
 ## Iterable 可迭代接口
