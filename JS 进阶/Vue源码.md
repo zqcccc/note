@@ -564,3 +564,10 @@ compile 函数先合并 options，然后调用 `baseCompile(template.trim(), fin
 - 全局组件
 - 局部组件
 
+Vue.Component 
+
+先创建父组件再创建子组件
+
+先将子组件挂载到父组件上
+
+![Vue 组件化](../media/Vue 组件化.png)
