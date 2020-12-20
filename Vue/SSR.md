@@ -59,3 +59,45 @@ Nuxt.js 是一个基于 Vue.js 的服务端渲染应用框架，它可以帮我�
 在使用 Vuex 的时候，actions 里定义 nuxtServerInit 函数，只会在服务端运行，它可以在这拿到用户信息，然后 commit mutation 保存信息到 Vuex 容器中
 
 在服务端的时候 process.server 为 true，在客户端的时候 process.client 为 true
+
+# Vue-server-renderer
+
+使用 node 后端服务和 vue-server-renderer 结合可以实现自定义的 SSR
+
+浏览器乱码的话，响应设置 `Content-Type` 为 `text/html; charset=utf8` 可以解决，保险起见的话，返回的 html 里也加上 `<meta charset="UTF-8">`
+
+返回的 html 可以引入一个 html 文件作为模板，html 中用占位符 `<!--vue-ssr-outlet-->` 表示服务端渲染模板的位置
+
+定制 meta 的标签的话，占位符可以用 `{{{ }}}` 三对大括号，这样 vue 就不会把内容转成字符串
+
+现在页面内容能渲染了，但是客户端的 v-model，事件等都是没有的，因为还没有引入客户端代码，所以如何引入客户端代码就成了问题
+
+![source-code-structure](../media/source-code-structure.png)
+
+[vue 官方建议的项目结构](https://ssr.vuejs.org/guide/structure.html#code-structure-with-webpack)
+
+这样就通过 webpack 打包出两种文件，一种是客户端的，一种是服务端的，客户端的只有 `js` 和 `manifest`，服务端只有 `bundle.json`
+
+通过 `vue-server-renderer` 的 `createBundleRenderer` 就可以加载服务端和客户端的 manifest 就可以同构渲染了
+
+上面说的都是值考虑的生产环境，每次代码改动都要手动重新运行打包，不适合开发阶段，在开发阶段需要配置自动打包，而且打包结果不需要生成真实的文件，放在内存中就可以了，这样的话，需要我们特殊处理 express server 和 webpack，生成打包文件到内存中我们用的是 `webpack-dev-middleware`，其实它用到的是 `momfs`，配置起来会比较麻烦，我们就用官方的 `webpack-dev-middleware` 效果是一样的
+
+代码的大概逻辑就是，用一个 pending 中的 promise 去 await 去阻塞，这个过程中去监视文件的变化，如果文件发生变化就自动编译打包，然后将结果传出去
+
+这里有个坑就是，因为打包出来的东西都在内存中，所以，客户端直接请求 js 文件是找不到的，所以需要 express 在收到客户端的请求的时候需要通过 `webpack-dev-middleware` 得到的中间件去处理客户端对 js 资源的请求，`server.use(clientDevMiddleware)`
+
+开发中还有比较重要的东西就是，每次去打包后刷新页面后，页面的临时状态就丢失了，在开发一些有状态递进关系，或者表单相互依赖的场景，丢失临时状态也是比较不方便的，热更新的能力就显得有价值了，我们这个时候的场景用上 `webpack-hot-middleware` 插件就可以了，这个中间件也是注册到服务器中的
+
+## 数据预取
+
+Vue-server-renderer 服务端渲染只支持在 beforeCreated 和 created 两个生命周期中去获取数据，但是这里的坑就是，服务端渲染并不会等待这两个生命周期中的异步操作结束，服务端也不支持响应式数据，所以就不能在生命周期中直接拿数据
+
+官方给的是和 Vuex 结合的方案，然后在 Vue 实例中使用，并且结合组件中的 serverPrefetch 生命周期钩子，这个是 Vue SSR 特殊为服务端渲染提供的一个生命周期钩子函数，在里面发起 vuex 的 action 并返回 promise
+
+这里服务端和客户端的状态都要同步，不然的话，即使服务端返回了带数据的页面，客户端也会合并失败导致页面白屏
+
+Renderer 会把 context.state 数据对象内联到页面模板中
+
+最终发送给客户端的页面中会包含一段脚本：`window.__INITIAL_STATE__ = context.state`
+
+客户端就要把页面中的 `window.__INITIAL_STATE__` 拿出来填充到客户端 store 容器中
