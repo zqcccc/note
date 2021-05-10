@@ -263,7 +263,7 @@ Proxy 是以非侵入的方式监管了对象读写
 
 统一对象操作 API
 
-Reflect 属于静态类，不能 ~~new Reflect()~~，Reflect 内部封装了一系列对对象的底层操作，Reflect 成员方法就是 Proxy 处理对象的默认实现
+Reflect 属于静态类，不能 ~~new Reflect()~~，Reflect 内部封装了一系列对对象的底层操作，Reflect 成员方法就是 Proxy 处理对象的默认实现，这也解释了 Reflect 和 Proxy 的关系，以及 Reflect 存在的必要性
 
 就是说在 new 一个 `Proxy` 的时候，没有添加的处理方法，都用 Reflect 上相对应的静态方法去处理了
 
