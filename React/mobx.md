@@ -311,4 +311,5 @@ function Counter() {
 
 
 
-没用装饰器，装饰器还不稳定，以后不一定就是现在的用法，实际使用体验感觉也没什么。
+没用装饰器，[官方现在也开始远离装饰器了](https://mobx.js.org/installation.html#mobx-and-decorators)，装饰器还不稳定，以后不一定就是现在的用法，实际使用体验感觉也没什么。
+
