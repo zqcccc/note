@@ -255,3 +255,29 @@ d rwxr-xr- 的权限就是754
 ### yum
 
 能够从指定的服务器自动下载 rpm 包并且安装，可以**自动处理依赖性关系**
+
+## 环境配置
+
+`systemctl status firewalld` 查看防火墙状态
+
+`systemctl stop firewalld` 暂时关闭防火墙
+
+`systemctl disable firewalld` 一直关闭防火墙
+
+Security-Enhanced Linux 简称 SELinux，它是一个 Linux 内核模块，也是 Linux 的一个安全子系统
+
+如果不关闭 SELinux 安全策略可能会导致 SSH 连接异常
+
+`vi /etc/selinux/config`
+
+```bash
+# SELINUX=enforcing 注释这个，写入下面这个
+SELINUX=disabled
+```
+
+## 免密登录
+
+SSH 是 Secure Shell 的缩写，由 IETF 的网络小组（Network Working Group）所指定，专为远程登录会话，有两种级别的安全验证：
+
+1. 基于口令即密码登录
+2. 秘钥登录
