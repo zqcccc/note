@@ -118,7 +118,7 @@ function fn3(){
 
 其中这里，使用到了一个执行器函数 `run`, 这里我们对 `run` 函数做一个简单实现：
 
-```
+```js
 function run(genF) {
     return new Promise(function(resolve, reject) {
         var gen = genF();
@@ -143,3 +143,37 @@ function run(genF) {
 ```
 
 本文讲解的有关 async 函数的内容，就到这里。
+
+babel-runtime 6.26.0 /babel-runtime/helpers/asyncToGenerator.js 把一些依赖修改后的源码
+
+```js
+function asyncToGenerator(fn) {
+  return function () {
+    var gen = fn.apply(this, arguments);
+    return new Promise(function (resolve, reject) {
+      function step(key, arg) {
+        try {
+          var info = gen[key](arg);
+          var value = info.value;
+        } catch (error) {
+          reject(error);
+          return;
+        }
+
+        if (info.done) {
+          resolve(value);
+        } else {
+          return Promise.resolve(value).then(function (value) {
+            step("next", value);
+          }, function (err) {
+            step("throw", err);
+          });
+        }
+      }
+
+      return step("next");
+    });
+  };
+};
+
+```
