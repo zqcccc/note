@@ -20,15 +20,15 @@
 - 删除你不想要的提交
 - 合并提交。 简而言之，就是把多个提交记录 squash 合并成一个。
 
-## ^~
+## 操作符^~
 
-例如命令 `git checkout HEAD~^2~2`
+先说 `~`，例如命令 `git checkout HEAD~2` 就是把当前的 `HEAD` 往该分支的上面两个 `commit` 去移动
 
-操作符 `^` 与 `~` 符一样，后面也可以跟一个数字。
+操作符 `^` 与 `~` 符一样，后面也可以跟一个数字，但有些区别。
 
-但是该操作符后面的数字与 `~` 后面的不同，并不是用来指定向上返回几代，而是指定合并提交记录的某个父提交。还记得前面提到过的一个合并提交有两个父提交吧，所以遇到这样的节点时该选择哪条路径就不是很清晰了。
+假如你现在有分支 `a` 和 `b`，`HEAD` 在 `a` 最新的 `commit` 上，这样你执行 `git merge b` 后就会在分支 `a` 上再生成一个 `commit` ，那这个时候最新的 `HEAD` 节点其实是有两个父节点的，那如果要切到落在 `b` 分支的父节点上的话，就要用 `git checkout HEAD^2` 
 
-Git 默认选择合并提交的“第一个”父提交，在操作符 `^` 后跟一个数字可以改变这一默认行为。
+操作符是可以连着使用的，例如 `git checkout HEAD~^2~2`
 
 ## rebase 和 merge 合并 commit
 
@@ -95,4 +95,8 @@ git fetch origin bar~1:bugFix; git merge bugFix
 ```
 
 可以看到 `git pull` 实际上就是 `fetch + merge` 的缩写, `git pull` 唯一关注的是提交最终合并到哪里（也就是为 `git fetch` 所提供的 `destination` 参数）
+
+## Pro Git
+
+Git 的数据类型是 a set of snapshots of a miniature filesystem，这也是它和别的 VCS 的重要区别，几乎所有操作都在本地
 
