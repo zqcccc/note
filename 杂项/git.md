@@ -50,6 +50,12 @@
 
 一些开发人员喜欢保留提交历史，因此更偏爱 merge。而其他人可能更喜欢干净的提交树，于是偏爱 rebase。仁者见仁，智者见智。 :D
 
+多人协作的时候在 merge 或者 rebase 的时候，有冲突是很正常的，这个时候会有 current change 和 incoming change 的区别，merge 的情况比较好理解，比如说，当前你在你的开发分支 dev 上，HEAD 指向当前的分支 dev，`git merge master`，那当前的分支的冲突部分就是 current change，合进来的冲突部分就是 incoming change，但你在用 `git rebase master` 的时候就会发现，情况相反了，current 居然指向的是 `master`，incoming 指向的是你刚刚开发的 dev，这是因为 rebase 会先切到你要基于的分支上，再把你刚刚开发分支上的变更 replay 到新基上
+
+https://stackoverflow.com/questions/59607874/github-difference-between-accept-current-changes-and-incoming-changes
+
+https://stackoverflow.com/questions/2959443/why-is-the-meaning-of-ours-and-theirs-reversed-with-git-svn/2960751#2960751
+
 ## push & fetch & pull
 
 ### push
